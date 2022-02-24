@@ -3,6 +3,8 @@ import {ChartComponent} from "angular2-chartjs";
 import {DataService} from "../../services/data.service";
 import {GraphService} from "../../services/graph.service";
 import {ItemInterface} from '../../models/item.model'
+import {DataGraphInterface} from "../../models/datagraph.model";
+import {OptionInterface} from "../../models/option.model";
 
 @Component({
   selector: 'app-list',
@@ -15,8 +17,8 @@ export class ListComponent implements OnInit {
   finalList: Array<ItemInterface>;
   genreNumberList: Array<ItemInterface>;
   type: string;
-  data: Object;
-  options: Object;
+  data: DataGraphInterface;
+  options: OptionInterface;
   @ViewChild('chartComponent', {static: false}) chartComponent: ChartComponent;
 
   constructor(private dataService: DataService, private graphService: GraphService) {
