@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {ChartComponent} from "angular2-chartjs";
 import {DataService} from "../../services/data.service";
 import {GraphService} from "../../services/graph.service";
@@ -11,7 +11,8 @@ import {SubscriptionLike} from "rxjs";
   selector: 'app-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.css'],
-  providers: [DataService, GraphService]
+  providers: [DataService, GraphService],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class ListComponent implements OnInit {
@@ -23,7 +24,7 @@ export class ListComponent implements OnInit {
   subscriptions: SubscriptionLike[] = [];
   @ViewChild('chartComponent', {static: false}) chartComponent: ChartComponent;
 
-  constructor(private dataService: DataService, private graphService: GraphService) {
+  constructor(private dataService: DataService, private graphService: GraphService, private cdRef: ChangeDetectorRef) {
   }
 
   ngOnInit(): void {
@@ -35,6 +36,7 @@ export class ListComponent implements OnInit {
         this.data = config.data;
         this.options = config.options;
         this.type = config.type;
+        this.cdRef.detectChanges();
       }
     ));
   }
