@@ -1,8 +1,8 @@
 <h1 class="ml5">Arrondissement</h1>
 <ul class="list-group">
-  <li *ngFor="let d of finalList" class="list-group-item">
-    <span class="ml5">Arrondissement:</span> <span [ngStyle]="{'font-weight':'bold'}"> {{d.name}}</span>
-    <span class="ml5">Amount:</span> <span [ngStyle]="{'font-weight':'bold'}"> {{d.count}}</span>
+  <li *ngFor="let d of finalList; trackBy:arrondByName" class="list-group-item">
+    <span class="ml5">Arrondissement:</span> <span class="bold"> {{d.name}}</span>
+    <span class="ml5">Amount:</span> <span class="bold"> {{d.count}}</span>
   </li>
 </ul>
 
