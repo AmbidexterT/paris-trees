@@ -5,10 +5,13 @@ import {HttpClient} from "@angular/common/http";
 import {DataSourceInterface} from "../models/datasource.model";
 import {ItemInterface} from "../models/item.model";
 
+interface PerformDataInterface {
+  genreNumberList: ItemInterface[];
+  finalList: ItemInterface[];
+}
+
 @Injectable()
 export class DataService {
-  finalList: Array<ItemInterface>;
-  genreNumberList: Array<ItemInterface>;
   rows = 20;
   start = 0;
 
@@ -21,7 +24,7 @@ export class DataService {
     return this.http.get<DataSourceInterface>(`${this.configUrl}`);
   }
 
-  public processData(result: DataSourceInterface) {
+  public processData(result: DataSourceInterface): PerformDataInterface {
     const data = result?.records.map(x => x.fields);
     const groupByArrondissement = data.reduce((group, property) => {
       const {arrondissement} = property;
@@ -40,8 +43,8 @@ export class DataService {
       return result;
     }
 
-    this.finalList = toArray(groupByArrondissement);
-    this.finalList.sort((a, b) => {
+    const finalList: ItemInterface[] = toArray(groupByArrondissement);
+    finalList.sort((a, b) => {
       if (a.count > b.count) {
         return -1;
       }
@@ -59,8 +62,8 @@ export class DataService {
       return group;
     }, {});
 
-    this.genreNumberList = toArray(groupByGenre);
-    this.genreNumberList.sort((a, b) => {
+    const genreNumberList: ItemInterface[] = toArray(groupByGenre);
+    genreNumberList.sort((a, b) => {
       if (a.count > b.count) {
         return -1;
       }
@@ -69,7 +72,7 @@ export class DataService {
       }
       return 0;
     });
-    return [this.genreNumberList, this.finalList];
+    return {genreNumberList, finalList};
   }
 
 }

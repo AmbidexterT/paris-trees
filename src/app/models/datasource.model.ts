@@ -1,5 +1,5 @@
-import {RecordInterface} from "./record.item";
+import {RecordInterface} from "./record.model";
 
 export interface DataSourceInterface {
-  records: Array<RecordInterface>;
+  records: RecordInterface[];
 }

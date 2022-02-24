@@ -1,6 +1,6 @@
 import {DatasetInterface} from "./dataset.model";
 
 export interface DataGraphInterface {
-  labels: Array<string>;
-  datasets: Array<DatasetInterface>;
+  labels: string[];
+  datasets: DatasetInterface[];
 }

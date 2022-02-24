@@ -24,7 +24,7 @@ const defaultConfig = {
 export class GraphService {
   defaultConfig = defaultConfig;
 
-  public updateData(dataList: Array<ItemInterface>) {
+  public updateData(dataList: ItemInterface[]) {
     defaultConfig.data.labels = dataList.map(x => x.name);
     defaultConfig.data.datasets[0].data = dataList.map(x => x.count);
     return defaultConfig;
