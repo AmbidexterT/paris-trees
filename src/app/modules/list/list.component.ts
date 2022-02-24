@@ -2,11 +2,7 @@ import {Component, OnInit, ViewChild,} from '@angular/core';
 import {ChartComponent} from "angular2-chartjs";
 import {DataService} from "../../services/data.service";
 import {GraphService} from "../../services/graph.service";
-
-interface ItemInterface {
-  name: string;
-  count: number;
-}
+import {ItemInterface} from '../../models/item.model'
 
 @Component({
   selector: 'app-list',

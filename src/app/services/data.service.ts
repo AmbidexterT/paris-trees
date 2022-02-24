@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {API_URL} from '../../../src/config';
 import {HttpClient} from "@angular/common/http";
+import {DataSourceInterface} from "../models/datasource.model";
 
 @Injectable()
 export class DataService {
@@ -15,11 +16,11 @@ export class DataService {
 
   configUrl = `${API_URL}&rows=${this.rows}&start=${this.start}`;
 
-  public getDataSource(): Observable<any> {
-    return this.http.get<any>(`${this.configUrl}`);
+  public getDataSource(): Observable<DataSourceInterface> {
+    return this.http.get<DataSourceInterface>(`${this.configUrl}`);
   }
 
-  public processData(result) {
+  public processData(result: DataSourceInterface) {
     const data = result?.records.map(x => x.fields);
     const groupByArrondissement = data.reduce((group, property) => {
       const {arrondissement} = property;
@@ -33,8 +34,7 @@ export class DataService {
       const values = Object.values(object);
       const result = [];
       for (let i = 0; i < keys.length; i++) {
-        // @ts-ignore
-        result.push({name: keys[i], count: values[i].length})
+        result.push({name: keys[i], count: values[i]["length"]})
       }
       return result;
     }

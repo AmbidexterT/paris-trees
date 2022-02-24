@@ -1,9 +1,5 @@
 import {Injectable} from '@angular/core';
-
-interface ItemInterface {
-  name: string;
-  count: number;
-}
+import {ItemInterface} from '../models/item.model'
 
 const defaultConfig = {
   type: 'line',
