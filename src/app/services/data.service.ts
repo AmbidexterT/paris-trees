@@ -3,11 +3,12 @@ import {Observable} from 'rxjs';
 import {API_URL} from '../../../src/config';
 import {HttpClient} from "@angular/common/http";
 import {DataSourceInterface} from "../models/datasource.model";
+import {ItemInterface} from "../models/item.model";
 
 @Injectable()
 export class DataService {
-  finalList;
-  genreNumberList;
+  finalList: Array<ItemInterface>;
+  genreNumberList: Array<ItemInterface>;
   rows = 20;
   start = 0;
 
