@@ -3,6 +3,11 @@ import {ChartComponent} from "angular2-chartjs";
 import {DataService} from "../../services/data.service";
 import {GraphService} from "../../services/graph.service";
 
+interface ItemInterface {
+  name: string;
+  count: number;
+}
+
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
@@ -10,13 +15,12 @@ import {GraphService} from "../../services/graph.service";
   providers: [DataService, GraphService]
 })
 
-
 export class ListComponent implements OnInit {
-  finalList;
-  genreNumberList;
-  type;
-  data;
-  options;
+  finalList: Array<ItemInterface>;
+  genreNumberList: Array<ItemInterface>;
+  type: string;
+  data: Object;
+  options: Object;
   @ViewChild('chartComponent', {static: false}) chartComponent: ChartComponent;
 
   constructor(private dataService: DataService, private graphService: GraphService) {
@@ -24,8 +28,9 @@ export class ListComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataService.getDataSource().subscribe(data => {
-        this.genreNumberList = data[0];
-        this.finalList = data[1];
+        const processData = this.dataService.processData(data)
+        this.genreNumberList = processData[0];
+        this.finalList = processData[1];
         const config = this.graphService.updateData(this.genreNumberList);
         this.data = config.data;
         this.options = config.options;
@@ -34,7 +39,7 @@ export class ListComponent implements OnInit {
     );
   }
 
-  arrondByName(index, item) {
+  trackByName(index: number, item: ItemInterface) {
     return item.name;
   }
 }
